@@ -100,7 +100,7 @@ class ElectricVehicleController extends Controller
             'seats' => 'integer|nullable',
             'description' => 'string|nullable',
             'imageSlug' => 'string|nullable',
-            'youtube' => 'url|nullable',
+            'youtube' => 'string|nullable',
             'slug' => 'string'
         ]);
         if(isset($data['id'])) {

@@ -41963,7 +41963,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "label", attrs: { for: "youtube" } }, [
-            _vm._v("Youtube")
+            _vm._v("Youtube Code")
           ]),
           _vm._v(" "),
           _c("input", {

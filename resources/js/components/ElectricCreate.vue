@@ -106,7 +106,7 @@
                     <div v-if="errors && errors.description" class="text-danger">{{ errors.description[0] }}</div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="youtube" class="label">Youtube</label>
+                    <label for="youtube" class="label">Youtube Code</label>
                     <input v-model="fields.youtube" type="text" id="youtube" name="youtube" class="form-control" value="" placeholder="Youtube" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.youtube" class="text-danger">{{ errors.youtube[0] }}</div>
                 </div>
