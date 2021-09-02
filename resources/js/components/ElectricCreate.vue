@@ -94,21 +94,26 @@
                     <div v-if="errors && errors.seats" class="text-danger">{{ errors.seats[0] }}</div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="imageSlug" class="label">Image Slug</label>
-                    <input v-model="fields.imageSlug" type="text" id="imageSlug" name="imageSlug" class="form-control" value="" placeholder="Image Slug" minlength="2" maxlength="100" required />
-                    <div v-if="errors && errors.imageSlug" class="text-danger">{{ errors.imageSlug[0] }}</div>
+                    <label for="slug" class="label">Slug</label>
+                    <input v-model="fields.slug" type="text" id="slug" name="slug" class="form-control" value="" placeholder="Slug" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.slug" class="text-danger">{{ errors.slug[0] }}</div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-8">
+                <div class="form-group col-md-5">
                     <label for="description" class="label">Description</label>
                     <textarea v-model="fields.description" type="text" id="description" name="description" class="form-control" value="" placeholder="Description" required />
                     <div v-if="errors && errors.description" class="text-danger">{{ errors.description[0] }}</div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="slug" class="label">Slug</label>
-                    <input v-model="fields.slug" type="text" id="slug" name="slug" class="form-control" value="" placeholder="Slug" minlength="2" maxlength="100" required />
-                    <div v-if="errors && errors.slug" class="text-danger">{{ errors.slug[0] }}</div>
+                    <label for="youtube" class="label">Youtube</label>
+                    <input v-model="fields.youtube" type="text" id="youtube" name="youtube" class="form-control" value="" placeholder="Youtube" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.youtube" class="text-danger">{{ errors.youtube[0] }}</div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="imageSlug" class="label">Image Slug</label>
+                    <input v-model="fields.imageSlug" type="text" id="imageSlug" name="imageSlug" class="form-control" value="" placeholder="Image Slug" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.imageSlug" class="text-danger">{{ errors.imageSlug[0] }}</div>
                 </div>
             </div>
             <div class="form-row" v-if="!showUploadButton && onLoadPage">

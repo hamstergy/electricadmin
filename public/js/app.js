@@ -2084,6 +2084,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -41871,8 +41876,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
-          _c("label", { staticClass: "label", attrs: { for: "imageSlug" } }, [
-            _vm._v("Image Slug")
+          _c("label", { staticClass: "label", attrs: { for: "slug" } }, [
+            _vm._v("Slug")
           ]),
           _vm._v(" "),
           _c("input", {
@@ -41880,42 +41885,42 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.fields.imageSlug,
-                expression: "fields.imageSlug"
+                value: _vm.fields.slug,
+                expression: "fields.slug"
               }
             ],
             staticClass: "form-control",
             attrs: {
               type: "text",
-              id: "imageSlug",
-              name: "imageSlug",
+              id: "slug",
+              name: "slug",
               value: "",
-              placeholder: "Image Slug",
+              placeholder: "Slug",
               minlength: "2",
               maxlength: "100",
               required: ""
             },
-            domProps: { value: _vm.fields.imageSlug },
+            domProps: { value: _vm.fields.slug },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.fields, "imageSlug", $event.target.value)
+                _vm.$set(_vm.fields, "slug", $event.target.value)
               }
             }
           }),
           _vm._v(" "),
-          _vm.errors && _vm.errors.imageSlug
+          _vm.errors && _vm.errors.slug
             ? _c("div", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.errors.imageSlug[0]))
+                _vm._v(_vm._s(_vm.errors.slug[0]))
               ])
             : _vm._e()
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "form-group col-md-8" }, [
+        _c("div", { staticClass: "form-group col-md-5" }, [
           _c("label", { staticClass: "label", attrs: { for: "description" } }, [
             _vm._v("Description")
           ]),
@@ -41957,8 +41962,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
-          _c("label", { staticClass: "label", attrs: { for: "slug" } }, [
-            _vm._v("Slug")
+          _c("label", { staticClass: "label", attrs: { for: "youtube" } }, [
+            _vm._v("Youtube")
           ]),
           _vm._v(" "),
           _c("input", {
@@ -41966,35 +41971,78 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.fields.slug,
-                expression: "fields.slug"
+                value: _vm.fields.youtube,
+                expression: "fields.youtube"
               }
             ],
             staticClass: "form-control",
             attrs: {
               type: "text",
-              id: "slug",
-              name: "slug",
+              id: "youtube",
+              name: "youtube",
               value: "",
-              placeholder: "Slug",
+              placeholder: "Youtube",
               minlength: "2",
               maxlength: "100",
               required: ""
             },
-            domProps: { value: _vm.fields.slug },
+            domProps: { value: _vm.fields.youtube },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.fields, "slug", $event.target.value)
+                _vm.$set(_vm.fields, "youtube", $event.target.value)
               }
             }
           }),
           _vm._v(" "),
-          _vm.errors && _vm.errors.slug
+          _vm.errors && _vm.errors.youtube
             ? _c("div", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.errors.slug[0]))
+                _vm._v(_vm._s(_vm.errors.youtube[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-3" }, [
+          _c("label", { staticClass: "label", attrs: { for: "imageSlug" } }, [
+            _vm._v("Image Slug")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.imageSlug,
+                expression: "fields.imageSlug"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "imageSlug",
+              name: "imageSlug",
+              value: "",
+              placeholder: "Image Slug",
+              minlength: "2",
+              maxlength: "100",
+              required: ""
+            },
+            domProps: { value: _vm.fields.imageSlug },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "imageSlug", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.imageSlug
+            ? _c("div", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.imageSlug[0]))
               ])
             : _vm._e()
         ])

@@ -34,7 +34,7 @@
                             >
                                 Edit
                             </a>
-                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                            <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-outline-danger">
                                 Delete
                             </button>
                         </div>
