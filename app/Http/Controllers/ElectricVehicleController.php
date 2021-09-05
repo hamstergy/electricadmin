@@ -42,7 +42,7 @@ class ElectricVehicleController extends Controller
     }
 
     public function index() {
-        $vehicles = ElectricVehicle::latest()->get();
+        $vehicles = ElectricVehicle::latest()->get()->reverse();
         return view('electric.index', compact('vehicles'));
     }
 
@@ -149,7 +149,7 @@ class ElectricVehicleController extends Controller
         return view('electric.create');
     }
     public function import() {
-        $json = Storage::disk('local')->get('allModels.json');
+        $json = Storage::disk('local')->get('allModels2.json');
         $models = json_decode($json, true);
 //        $model = $models[0];
 //        $mod = ElectricVehicle::create([
