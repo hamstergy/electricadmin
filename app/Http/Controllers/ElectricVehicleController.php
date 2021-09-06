@@ -42,7 +42,7 @@ class ElectricVehicleController extends Controller
     }
 
     public function index() {
-        $vehicles = ElectricVehicle::latest()->get()->reverse();
+        $vehicles = ElectricVehicle::all()->reverse();
         return view('electric.index', compact('vehicles'));
     }
 
