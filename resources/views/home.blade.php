@@ -13,8 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                        <a href="{{ url('/electric') }}">Electric Catalog</a>
 
-                    You are logged in!
                 </div>
             </div>
         </div>

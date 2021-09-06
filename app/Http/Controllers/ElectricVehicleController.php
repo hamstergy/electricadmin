@@ -47,7 +47,7 @@ class ElectricVehicleController extends Controller
     }
 
     public function json() {
-        $vehicles = ElectricVehicle::all();
+        $vehicles = ElectricVehicle::all()->reverse()->values();
         foreach ($vehicles as $vehicle) {
             unset($vehicle->created_at);
             unset($vehicle->updated_at);
