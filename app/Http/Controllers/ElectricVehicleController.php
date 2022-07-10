@@ -65,7 +65,7 @@ class ElectricVehicleController extends Controller
         $arr = $vehicles->map(function ($vehicle) {
             return [
                 'name' => $vehicle->make,
-                'slug' => strtolower($vehicle->make)
+                'slug' => str_replace(' ', '-', strtolower($vehicle->make))
             ];
         });
 //        foreach ($vehicles as $vehicle) {
