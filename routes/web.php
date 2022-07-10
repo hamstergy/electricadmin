@@ -20,7 +20,6 @@ Route::resource('models', 'VehicleModelController')->middleware('auth');
 Route::resource('electric', 'ElectricVehicleController')->middleware('auth');
 Route::get('electric-json', 'ElectricVehicleController@json')->middleware('auth');
 Route::get('electric-json/makes', 'ElectricVehicleController@jsonMakes')->middleware('auth');
-Route::get('electric-import', 'ElectricVehicleController@import')->middleware('auth');
 Route::post('makes/create','VehicleMakeController@save')->middleware('auth');
 Route::post('models/create','VehicleModelController@save')->middleware('auth');
 Route::post('electric/create','ElectricVehicleController@save')->middleware('auth');

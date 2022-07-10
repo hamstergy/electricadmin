@@ -224,7 +224,7 @@
             makeSlug() {
                 if(this.onLoadPage) {
                     // return this.makes.find(el => el.id == id).name.toLowerCase();
-                    return this.fields.make.toLowerCase()
+                    return this.fields.make.toLowerCase().replace(" ", "-")
                 }
             },
             toggleShow(width,height,make,model,type) {

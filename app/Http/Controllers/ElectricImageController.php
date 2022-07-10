@@ -22,9 +22,10 @@ class ElectricImageController extends Controller
 
         if($request->hasfile('img'))
         {
+            $make = str_replace(' ', '-', $request->make);
             $file = $request->file('img');
             $name=$request->model.'-'.$request->type.'.jpg';
-            $filePath = 'images/'.$request->make.'/'. $name;
+            $filePath = 'images/'.$make.'/'. $name;
             Storage::disk('s3')->put($filePath, file_get_contents($file), 'public');
             return response()->json([ $filePath, 201]);
         }
