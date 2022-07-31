@@ -25,82 +25,73 @@
                     <div v-if="errors && errors.model" class="text-danger">{{ errors.model[0] }}</div>
                 </div>
                 <div class="form-group col-md-1">
-                    <label for="isConcept" class="label">Concept?</label>
-                    <input v-model="fields.isConcept" class="form-control" name="isConcept" type="checkbox" value="" id="isConcept" >
-                    <div v-if="errors && errors.isConcept" class="text-danger">{{ errors.isConcept[0] }}</div>
+                    <label for="folding" class="label">Folding?</label>
+                    <input v-model="fields.folding" class="form-control" name="folding" type="checkbox" value="" id="folding" >
+                    <div v-if="errors && errors.folding" class="text-danger">{{ errors.folding[0] }}</div>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="releaseDate" class="label">Release Date</label>
-                    <input v-model="fields.releaseDate" type="text" id="releaseDate" name="releaseDate" class="form-control" value="" placeholder="Release Date" minlength="2" maxlength="100" required />
-                    <div v-if="errors && errors.releaseDate" class="text-danger">{{ errors.releaseDate[0] }}</div>
+                    <label for="url" class="label">URL</label>
+                    <input v-model="fields.url" type="text" id="url" name="url" class="form-control" value="" placeholder="Amazon URL" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.url" class="text-danger">{{ errors.url[0] }}</div>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="price" class="label">Price ($)</label>
+                    <label for="price" class="label">Price</label>
                     <input v-model="fields.price" type="text" id="price" name="price" class="form-control" value="" placeholder="Price" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.price" class="text-danger">{{ errors.price[0] }}</div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-2">
-                    <label for="acceleration" class="label">Acceleration (sec)</label>
-                    <input v-model="fields.acceleration" type="text" id="acceleration" name="acceleration" class="form-control" value="" placeholder="Acceleration" minlength="2" maxlength="100" required />
-                    <div v-if="errors && errors.acceleration" class="text-danger">{{ errors.acceleration[0] }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="speed" class="label">Top Speed (km/h)</label>
+                    <label for="speed" class="label">Top Speed</label>
                     <input v-model="fields.speed" type="text" id="speed" name="speed" class="form-control" value="" placeholder="Speed" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.speed" class="text-danger">{{ errors.speed[0] }}</div>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="range" class="label">Range (km)</label>
+                    <label for="range" class="label">Range</label>
                     <input v-model="fields.range" type="text" id="range" name="range" class="form-control" value="" placeholder="Range" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.range" class="text-danger">{{ errors.range[0] }}</div>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="efficiency" class="label">Efficiency (Wh/km)</label>
-                    <input v-model="fields.efficiency" type="text" id="efficiency" name="efficiency" class="form-control" value="" placeholder="Efficiency" minlength="2" maxlength="100" required />
-                    <div v-if="errors && errors.efficiency" class="text-danger">{{ errors.efficiency[0] }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="chargeSpeed" class="label">Charge Speed (km/h)</label>
-                    <input v-model="fields.chargeSpeed" type="text" id="chargeSpeed" name="chargeSpeed" class="form-control" value="" placeholder="Charge Speed" minlength="2" maxlength="100" required />
-                    <div v-if="errors && errors.chargeSpeed" class="text-danger">{{ errors.chargeSpeed[0] }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="battery" class="label">Battery (kWh)</label>
+                    <label for="battery" class="label">Battery</label>
                     <input v-model="fields.battery" type="text" id="battery" name="battery" class="form-control" value="" placeholder="Battery" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.battery" class="text-danger">{{ errors.battery[0] }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="motor" class="label">Motor</label>
+                    <input v-model="fields.motor" type="text" id="motor" name="motor" class="form-control" value="" placeholder="Motor" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.motor" class="text-danger">{{ errors.motor[0] }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="gears" class="label">Gears</label>
+                    <input v-model="fields.gears" type="text" id="gears" name="gears" class="form-control" value="" placeholder="Gears" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.gears" class="text-danger">{{ errors.gears[0] }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="tire" class="label">Tire</label>
+                    <input v-model="fields.tire" type="text" id="tire" name="tire" class="form-control" value="" placeholder="Tire Size" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.tire" class="text-danger">{{ errors.tire[0] }}</div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-2">
-                    <label for="drive" class="label">Drive</label>
-                    <select v-model="fields.drive" class="form-control">
-                        <option value="">N/A</option>
-                        <option v-for="d in drive" :key=d.value :value=d.value>{{d.name}}</option>
-                    </select>
-                    <div v-if="errors && errors.drive" class="text-danger">{{ errors.drive[0] }}</div>
-                </div>
-                <div class="form-group col-md-2">
                     <label for="type" class="label">Type</label>
-                    <select v-model="fields.type" class="form-control">
-                        <option value="">N/A</option>
-                        <option v-for="t in types" :key=t.value :value=t.value>{{t.name}}</option>
-                    </select>
+                    <input v-model="fields.type" type="text" id="type" name="type" class="form-control" value="" placeholder="Type" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.type" class="text-danger">{{ errors.type[0] }}</div>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="segment" class="label">Segment</label>
-                    <select v-model="fields.segment" class="form-control">
-                        <option value="">N/A</option>
-                        <option v-for="segment in segments" :key=segment.value :value=segment.value>{{segment.name}}</option>
-                    </select>
-                    <div v-if="errors && errors.segment" class="text-danger">{{ errors.segment[0] }}</div>
+                    <label for="weight" class="label">Weight</label>
+                    <input v-model="fields.weight" type="text" id="weight" name="weight" class="form-control" value="" placeholder="Weight" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.weight" class="text-danger">{{ errors.weight[0] }}</div>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="seats" class="label">Seats</label>
-                    <input v-model="fields.seats" type="text" id="seats" name="seats" class="form-control" value="" placeholder="Seats" minlength="2" maxlength="100" required />
-                    <div v-if="errors && errors.seats" class="text-danger">{{ errors.seats[0] }}</div>
+                    <label for="break_system" class="label">Break System</label>
+                    <input v-model="fields.break_system" type="text" id="break_system" name="break_system" class="form-control" value="" placeholder="Break System" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.break_system" class="text-danger">{{ errors.break_system[0] }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="frame_type" class="label">Frame Type</label>
+                    <input v-model="fields.frame_type" type="text" id="frame_type" name="frame_type" class="form-control" value="" placeholder="Frame Type" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.frame_type" class="text-danger">{{ errors.frame_type[0] }}</div>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="slug" class="label">Slug</label>
@@ -109,8 +100,18 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="review_rate" class="label">Review Rate</label>
+                    <input v-model="fields.review_rate" type="text" id="review_rate" name="review_rate" class="form-control" value="" placeholder="Review Rate" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.review_rate" class="text-danger">{{ errors.review_rate[0] }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="amazon_id" class="label">Amazon ID</label>
+                    <input v-model="fields.amazon_id" type="text" id="amazon_id" name="amazon_id" class="form-control" value="" placeholder="Amazon ID" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.amazon_id" class="text-danger">{{ errors.amazon_id[0] }}</div>
+                </div>
                 <div class="form-group col-md-4">
-                    <label for="youtube" class="label">Youtube Code (format: 5KZzCo9_zsg)</label>
+                    <label for="youtube" class="label">Youtube Code</label>
                     <input v-model="fields.youtube" type="text" id="youtube" name="youtube" class="form-control" value="" placeholder="Youtube" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.youtube" class="text-danger">{{ errors.youtube[0] }}</div>
                 </div>
@@ -121,6 +122,11 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="title" class="label">Title</label>
+                    <input v-model="fields.title" type="text" id="title" name="title" class="form-control" value="" placeholder="Title" minlength="2" maxlength="100" required />
+                    <div v-if="errors && errors.title" class="text-danger">{{ errors.title[0] }}</div>
+                </div>
                 <div class="form-group col-md-12">
                     <label class="label">Description</label>
                     <div class="editor">
@@ -201,10 +207,11 @@
     import 'quill/dist/quill.bubble.css'
     import { quillEditor } from 'vue-quill-editor'
     import myUpload from 'vue-image-crop-upload'
+
     export default {
         components: {myUpload, quillEditor},
         props: ['data'],
-        name: 'electricCreate',
+        name: 'bikeCreate',
         data() {
             return {
                 fields: this.data,
@@ -230,33 +237,6 @@
                     'make' : 'bmw',
                     'model': 'x6'
                 },
-                segments: [
-                    {name: 'A - Mini', value: 'A'},
-                    {name: 'B - Small', value: 'B'},
-                    {name: 'C - Medium', value: 'C'},
-                    {name: 'D - Large', value: 'D'},
-                    {name: 'E - Executive', value: 'E'},
-                    {name: 'F - Luxury', value: 'F'},
-                    {name: 'N - Commercial', value: 'N'},
-                    {name: 'S - Sports', value: 'S'}
-                ],
-                types: [
-                    {name: 'Hatchback', value: 'hatchback'},
-                    {name: 'Sedan', value: 'sedan'},
-                    {name: 'SUV', value: 'suv'},
-                    {name: 'Wagon', value: 'wagon'},
-                    {name: 'Convertible', value: 'convertible'},
-                    {name: 'Truck', value: 'truck'},
-                    {name: 'Liftback', value: 'liftback'},
-                    {name: 'Coupe', value: 'coupe'},
-                    {name: 'VAN', value: 'van'},
-                    {name: 'Crossover', value: 'crossover'}
-                ],
-                drive: [
-                    {name: 'Front', value: 'front'},
-                    {name: 'Rear', value: 'rear'},
-                    {name: 'AWD', value: 'awd'}
-                ],
                 showUploadButton: true,
                 imgDataUrl: '',
                 onLoadPage: true,
@@ -272,6 +252,9 @@
             }
         },
         methods: {
+            slugGenerate() {
+
+            },
             makeSlug() {
                 if(this.onLoadPage) {
                     // return this.makes.find(el => el.id == id).name.toLowerCase();
@@ -290,10 +273,10 @@
             submit() {
                 this.errors = {};
                 this.isLoading = true;
-                axios.post('/electric/create', this.fields).then(response => {
+                axios.post('/bikes/create', this.fields).then(response => {
                     this.isLoading = false;
                     console.log(response);
-                    window.location.href = "/electric/"+response.data[0].id+"/edit";
+                    window.location.href = "/bikes/"+response.data[0].id+"/edit";
                 }).catch( error => {
                     if (error.response.status === 422) {
                         this.isLoading = false;
@@ -371,4 +354,5 @@
     .editor {
         background-color: white;
     }
+
 </style>

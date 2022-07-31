@@ -18,11 +18,15 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::resource('makes', 'VehicleMakeController')->middleware('auth');
 Route::resource('models', 'VehicleModelController')->middleware('auth');
 Route::resource('electric', 'ElectricVehicleController')->middleware('auth');
+Route::resource('bikes', 'ElectricBikeController')->middleware('auth');
 Route::get('electric-json', 'ElectricVehicleController@json')->middleware('auth');
 Route::get('electric-json/makes', 'ElectricVehicleController@jsonMakes')->middleware('auth');
+Route::get('bikes-json', 'ElectricBikeController@json')->middleware('auth');
+Route::get('bikes-json/makes', 'ElectricBikeController@jsonMakes')->middleware('auth');
 Route::post('makes/create','VehicleMakeController@save')->middleware('auth');
 Route::post('models/create','VehicleModelController@save')->middleware('auth');
 Route::post('electric/create','ElectricVehicleController@save')->middleware('auth');
+Route::post('bikes/create','ElectricBikeController@save')->middleware('auth');
 
 Route::get('image', 'ImageController@index');
 Route::get('electric-image', 'ElectricImageController@index');

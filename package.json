@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "vue-image-crop-upload": "^2.5.0"
+        "vue-image-crop-upload": "^2.5.0",
+        "vue-quill-editor": "^3.0.6"
     }
 }
