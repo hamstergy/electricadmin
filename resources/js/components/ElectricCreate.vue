@@ -16,12 +16,12 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="make" class="label">Make</label>
-                    <input v-model="fields.make" type="text" id="make" name="make" class="form-control" value="" placeholder="Make" minlength="2" maxlength="100" required />
+                    <input v-model="fields.make" @blur="fields.make = fields.make.trim()" type="text" id="make" name="make" class="form-control" value="" placeholder="Make" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.make" class="text-danger">{{ errors.make[0] }}</div>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="model" class="label">Model</label>
-                    <input v-model="fields.model" type="text" id="model" name="model" class="form-control" value="" placeholder="Model" minlength="2" maxlength="100" required />
+                    <input v-model="fields.model" @blur="fields.model = fields.model.trim()" type="text" id="model" name="model" class="form-control" value="" placeholder="Model" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.model" class="text-danger">{{ errors.model[0] }}</div>
                 </div>
                 <div class="form-group col-md-1">
