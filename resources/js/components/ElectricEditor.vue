@@ -20,25 +20,25 @@
 
             <div class="form-row" v-if="!showUploadButton && onLoadPage">
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-large.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-large.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.large"
                        @click="toggleShow(1190,500,makeSlug(),fields.slug,'large')">Upload Large Image</a>
                 </div>
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-medium.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-medium.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.medium"
                        @click="toggleShow(920,375,makeSlug(),fields.slug,'medium')">Upload Medium Image</a>
                 </div>
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-small.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-small.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.small"
                        @click="toggleShow(300,210,makeSlug(),fields.slug,'small')">Upload Small Image</a>
                 </div>
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-mobile.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.slug+'-mobile.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.mobile"
                        @click="toggleShow(580,400,makeSlug(),fields.slug,'mobile')">Upload Mobile Image</a>

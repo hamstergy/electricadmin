@@ -24,9 +24,14 @@ class ElectricImageController extends Controller
         {
             $make = str_replace(' ', '-', $request->make);
             $file = $request->file('img');
-            $name=$request->model.'-'.$request->type.'.jpg';
+            $name=$request->model.'-'.$request->type.'.webp';
             $filePath = 'images/'.$make.'/'. $name;
-            Storage::disk('s3')->put($filePath, file_get_contents($file), 'public');
+            imagewebp(
+                imagecreatefromstring(file_get_contents($file)),
+                $name,
+                80);
+            Storage::disk('s3')->put($filePath, file_get_contents($name), 'public');
+            unlink($name);
             return response()->json([ $filePath, 201]);
         }
         return response()->json(false);
