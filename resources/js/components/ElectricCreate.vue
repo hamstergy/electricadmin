@@ -134,23 +134,17 @@
                 </div>
             </div>
             <div class="form-row" v-if="!showUploadButton && onLoadPage">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-large.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.large"
                        @click="toggleShow(1190,500,makeSlug(),fields.imageSlug,'large')">Upload Large Image</a>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-medium.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.medium"
                        @click="toggleShow(920,375,makeSlug(),fields.imageSlug,'medium')">Upload Medium Image</a>
-                </div>
-                <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-small.webp'"
-                         class="image img-fluid">
-                    <a class="btn btn-primary" v-if="!imageUploaded.small"
-                       @click="toggleShow(300,210,makeSlug(),fields.imageSlug,'small')">Upload Small Image</a>
                 </div>
                 <div class="form-group col-md-3">
                     <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-mobile.webp'"
