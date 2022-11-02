@@ -7,6 +7,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Make Model</th>
+            <th scope="col">Concept</th>
             <th scope="col">Price</th>
             <th scope="col">Acc.</th>
             <th scope="col">Range</th>
@@ -32,6 +33,7 @@
                     {{ $vehicle->make.' '.$vehicle->model }}
                 </a>
             </td>
+            <td>{!!($vehicle->isConcept)? 'Yes': '<b>No</b>'!!}</td>
             <td>{!!($vehicle->price)? $vehicle->price: $not_available !!}</td>
             <td>{!!($vehicle->acceleration)? $vehicle->acceleration: $not_available!!}</td>
             <td>{!!($vehicle->range)? $vehicle->range: $not_available!!}</td>
