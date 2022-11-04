@@ -47,7 +47,7 @@ class ElectricBikeController extends Controller
     }
 
     public function json() {
-        $bikes = ElectricBike::all()->values();
+        $bikes = ElectricBike::all()->sortByDesc('active')->values();
         foreach ($bikes as $bike) {
             unset($bike->created_at);
             unset($bike->updated_at);
