@@ -52,6 +52,7 @@ class ElectricVehicleController extends Controller
             unset($vehicle->created_at);
             unset($vehicle->updated_at);
             $vehicle->isConcept = ($vehicle->isConcept) ? TRUE : FALSE;
+            $vehicle->slug = str_replace(' ', '-', strtolower($vehicle->slug));
         }
         return response()->json($vehicles);
     }
