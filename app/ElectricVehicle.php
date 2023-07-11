@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Traits\Excludable;
 use Illuminate\Database\Eloquent\Model as Model;
 
 class ElectricVehicle extends Model
 {
+    use Excludable;
     protected $table = 'electric_vehicles';
 
     /**

@@ -41,6 +41,48 @@ class ElectricBikeController extends Controller
         ]);
     }
 
+    /**
+     * Show electric bikes list.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function list(Request $request) {
+        $query = ElectricBike::query();
+
+        if ($request->has('make')) {
+            $query->where('make', str_replace('-', ' ', $request->input('make')))->orWhere('make', $request->input('make'));
+        }
+
+        if ($request->has('type')) {
+            $query->where('type', $request->input('type'))->first();
+        }
+
+        if ($request->has('priceFrom')) {
+            $query->where('price', '>=' ,$request->input('priceFrom'))->first();
+        }
+
+        if ($request->has('priceTo')) {
+            $query->where('price', '<=', $request->input('priceTo'))->first();
+        }
+
+        if ($request->has('excludeBySlug')) {
+            $query->where('slug', "!=", $request->input('excludeBySlug'))->first();
+        }
+
+        $objects = $query->paginate(18);
+
+        return response()->json([
+            'data' => $objects->items(),
+            'current_page' => $objects->currentPage(),
+            'last_page' => $objects->lastPage(),
+        ]);
+    }
+
+    public function singleBike(ElectricBike $bike, $slug)
+    {
+        return response()->json(ElectricBike::where('slug', $slug)->first());
+    }
+
     public function index() {
         $bikes = ElectricBike::all()->reverse();
         return view('bikes.index', compact('bikes'));
@@ -54,17 +96,24 @@ class ElectricBikeController extends Controller
         }
         return response()->json($bikes);
     }
-    public function jsonMakes() {
+    public function jsonMakes(Request $request) {
         $bikes = ElectricBike::select('make', DB::raw('count(*) as total'))
-            ->groupBy('make')->orderByDesc('total')
-            ->get();
+            ->groupBy('make')->orderByDesc('total');
+
+        if ($request->has('make')) {
+            // $bikes->where('make', str_replace('-', ' ', $request->input('make')))->first();
+            $bikes->where('make', str_replace('-', ' ', $request->input('make')))->orWhere('make', $request->input('make'));
+
+        }
+
 //        $vehicles = $vehicles->values()->sortBy('make');
 //        $vehicles = $vehicles->sortBy('make');
 //        $vehicles = $vehicles->sortBy('make');
-        $arr = $bikes->map(function ($bike) {
+        $arr = $bikes->get()->map(function ($bike) {
+            $make = $bike->make;
             return [
-                'name' => $bike->make,
-                'slug' => str_replace(' ', '-', strtolower($bike->make))
+                'name' => $make,
+                'slug' => str_replace(' ', '-', strtolower($make))
             ];
         });
 //        foreach ($vehicles as $vehicle) {
@@ -72,7 +121,7 @@ class ElectricBikeController extends Controller
 //            unset($vehicle->updated_at);
 //            $vehicle->isConcept = ($vehicle->isConcept) ? TRUE : FALSE;
 //        }
-        return response()->json($arr);
+        return response()->json( $arr );
     }
     public function show(ElectricBike $bike)
     {

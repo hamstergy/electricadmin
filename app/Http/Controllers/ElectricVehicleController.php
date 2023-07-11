@@ -32,13 +32,38 @@ class ElectricVehicleController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function vehicles()
+    public function list(Request $request)
     {
-        $vehicles = $this->model->orderBy('make')->get(['id', 'name']);
+        // $vehicles = $this->model->orderBy('make')->get(['id', 'name']);
+        // return response()->json([
+        //     'vehicles' => $vehicles
+        // ]);
+        $query = ElectricVehicle::query()->orderByDesc('id');
+        if ($request->has('make')) {
+            $query->where('make', str_replace('-', ' ', $request->input('make')))->first();
+        }
+
+        if ($request->has('type')) {
+            $query->where('type', $request->input('type'))->first();
+        }
+
+        if ($request->has('excludeBySlug')) {
+            $query->where('slug', "!=", $request->input('excludeBySlug'))->first();
+        }
+
+        $objects = $query->exclude(['description', 'youtube', 'range', 'speed', 'efficiency', 'chargeSpeed', 'created_at', 'updated_at', 'seats', 'segment', 'drive', 'battery'])
+        ->paginate(18);
 
         return response()->json([
-            'vehicles' => $vehicles
+            'data' => $objects->items(),
+            'current_page' => $objects->currentPage(),
+            'last_page' => $objects->lastPage(),
         ]);
+    }
+
+    public function singleCar(ElectricVehicle $electric, $slug)
+    {
+        return response()->json(ElectricVehicle::where('slug', $slug)->first());
     }
 
     public function index() {
@@ -56,26 +81,26 @@ class ElectricVehicleController extends Controller
         }
         return response()->json($vehicles);
     }
-    public function jsonMakes() {
+
+    public function jsonMakes(Request $request) {
+
         $vehicles = ElectricVehicle::select('make', DB::raw('count(*) as total'))
-            ->groupBy('make')->orderByDesc('total')
-            ->get();
-//        $vehicles = $vehicles->values()->sortBy('make');
-//        $vehicles = $vehicles->sortBy('make');
-//        $vehicles = $vehicles->sortBy('make');
+        ->groupBy('make')->orderByDesc('total');
+
+        if ($request->has('make')) {
+            $vehicles->where('make', str_replace('-', ' ', $request->input('make')))->first();
+        }
+
+        $vehicles = $vehicles->get();
         $arr = $vehicles->map(function ($vehicle) {
             return [
                 'name' => $vehicle->make,
                 'slug' => str_replace(' ', '-', strtolower($vehicle->make))
             ];
         });
-//        foreach ($vehicles as $vehicle) {
-//            unset($vehicle->created_at);
-//            unset($vehicle->updated_at);
-//            $vehicle->isConcept = ($vehicle->isConcept) ? TRUE : FALSE;
-//        }
         return response()->json($arr);
     }
+
     public function show(ElectricVehicle $electric)
     {
         return view('electric.show', compact('electric'));

@@ -34,4 +34,16 @@ Route::post('image/store', 'ImageController@store');
 Route::post('electric-image/store', 'ElectricImageController@store');
 Route::post('/image/delete','ImageController@delete');
 
+Route::prefix('api')->group(function () {
+    Route::get('cars', 'ElectricVehicleController@list');
+    Route::get('cars/makes', 'ElectricVehicleController@jsonMakes');
+    Route::get('cars/{ElectricVehicle:slug}', 'ElectricVehicleController@singleCar');
+    // Route::get('cars/{electric_vehicle:slug}', function (App\ElectricVehicle $car) {
+    //     return $car;
+    // });
+    Route::get('bikes', 'ElectricBikeController@list');
+    Route::get('bikes/makes', 'ElectricBikeController@jsonMakes');
+    Route::get('bikes/{ElectricBike:slug}', 'ElectricBikeController@singleBike');
+});
+
 Auth::routes();
