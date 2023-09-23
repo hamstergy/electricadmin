@@ -52,7 +52,7 @@ class ElectricVehicleController extends Controller
         }
 
         $objects = $query->exclude(['description', 'youtube', 'range', 'speed', 'efficiency', 'chargeSpeed', 'created_at', 'updated_at', 'seats', 'segment', 'drive', 'battery'])
-        ->paginate(18);
+            ->paginate(18);
 
         return response()->json([
             'data' => $objects->items(),
@@ -61,17 +61,32 @@ class ElectricVehicleController extends Controller
         ]);
     }
 
+    public function all(Request $request)
+    {
+        // $vehicles = $this->model->orderBy('make')->get(['id', 'name']);
+        // return response()->json([
+        //     'vehicles' => $vehicles
+        // ]);
+        $query = ElectricVehicle::query()->orderByDesc('id');
+
+        $objects = $query->select(['slug'])->get();
+
+        return response()->json($objects);
+    }
+
     public function singleCar(ElectricVehicle $electric, $slug)
     {
         return response()->json(ElectricVehicle::where('slug', $slug)->first());
     }
 
-    public function index() {
+    public function index()
+    {
         $vehicles = ElectricVehicle::all()->reverse();
         return view('electric.index', compact('vehicles'));
     }
 
-    public function json() {
+    public function json()
+    {
         $vehicles = ElectricVehicle::all()->reverse()->values();
         foreach ($vehicles as $vehicle) {
             unset($vehicle->created_at);
@@ -82,10 +97,11 @@ class ElectricVehicleController extends Controller
         return response()->json($vehicles);
     }
 
-    public function jsonMakes(Request $request) {
+    public function jsonMakes(Request $request)
+    {
 
         $vehicles = ElectricVehicle::select('make', DB::raw('count(*) as total'))
-        ->groupBy('make')->orderByDesc('total');
+            ->groupBy('make')->orderByDesc('total');
 
         if ($request->has('make')) {
             $vehicles->where('make', str_replace('-', ' ', $request->input('make')))->first();
@@ -106,7 +122,8 @@ class ElectricVehicleController extends Controller
         return view('electric.show', compact('electric'));
     }
 
-    public function save(Request $request) {
+    public function save(Request $request)
+    {
         $data = $request->all();
         $validated = $request->validate([
             'make' => 'required|string',
@@ -129,12 +146,12 @@ class ElectricVehicleController extends Controller
             'youtube' => 'string|nullable',
             'slug' => 'string'
         ]);
-        if(isset($data['id'])) {
+        if (isset($data['id'])) {
             $vehicle = ElectricVehicle::find($data['id']);
             $vehicle->update($validated);
         } else {
-            $slug = ( empty($validated['slug']))
-                ? Str::slug($data['make'].' '.$data['model'],'-')
+            $slug = (empty($validated['slug']))
+                ? Str::slug($data['make'] . ' ' . $data['model'], '-')
                 : $validated['slug'];
             $vehicle = ElectricVehicle::create([
                 'make' => $validated['make'],
@@ -158,20 +175,21 @@ class ElectricVehicleController extends Controller
                 'slug' => $slug
             ]);
         }
-        return response()->json([$vehicle,201]);
+        return response()->json([$vehicle, 201]);
     }
     public function edit(ElectricVehicle $electric)
     {
-//        return $vehicle;
+        //        return $vehicle;
         return view('electric.edit', compact('electric'));
     }
 
     public function destroy(ElectricVehicle $electric)
     {
         $electric->delete();
-        return redirect(route('electric.index'))->with('notification', '"' . $electric->make .' '.$electric->model.  '" deleted!');
+        return redirect(route('electric.index'))->with('notification', '"' . $electric->make . ' ' . $electric->model . '" deleted!');
     }
-    public function create() {
+    public function create()
+    {
         return view('electric.create');
     }
 }

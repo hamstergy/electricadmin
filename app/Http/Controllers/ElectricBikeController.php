@@ -46,7 +46,8 @@ class ElectricBikeController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function list(Request $request) {
+    public function list(Request $request)
+    {
         $query = ElectricBike::query();
 
         if ($request->has('make')) {
@@ -58,7 +59,7 @@ class ElectricBikeController extends Controller
         }
 
         if ($request->has('priceFrom')) {
-            $query->where('price', '>=' ,$request->input('priceFrom'))->first();
+            $query->where('price', '>=', $request->input('priceFrom'))->first();
         }
 
         if ($request->has('priceTo')) {
@@ -78,17 +79,28 @@ class ElectricBikeController extends Controller
         ]);
     }
 
+    public function all(Request $request)
+    {
+        $query = ElectricBike::query()->orderByDesc('id');
+
+        $objects = $query->select(['slug'])->get();
+
+        return response()->json($objects);
+    }
+
     public function singleBike(ElectricBike $bike, $slug)
     {
         return response()->json(ElectricBike::where('slug', $slug)->first());
     }
 
-    public function index() {
+    public function index()
+    {
         $bikes = ElectricBike::all()->reverse();
         return view('bikes.index', compact('bikes'));
     }
 
-    public function json() {
+    public function json()
+    {
         $bikes = ElectricBike::all()->sortByDesc('active')->values();
         foreach ($bikes as $bike) {
             unset($bike->created_at);
@@ -96,7 +108,8 @@ class ElectricBikeController extends Controller
         }
         return response()->json($bikes);
     }
-    public function jsonMakes(Request $request) {
+    public function jsonMakes(Request $request)
+    {
         $bikes = ElectricBike::select('make', DB::raw('count(*) as total'))
             ->groupBy('make')->orderByDesc('total');
 
@@ -106,7 +119,7 @@ class ElectricBikeController extends Controller
 
         }
 
-//        $vehicles = $vehicles->values()->sortBy('make');
+        //        $vehicles = $vehicles->values()->sortBy('make');
 //        $vehicles = $vehicles->sortBy('make');
 //        $vehicles = $vehicles->sortBy('make');
         $arr = $bikes->get()->map(function ($bike) {
@@ -116,19 +129,20 @@ class ElectricBikeController extends Controller
                 'slug' => str_replace(' ', '-', strtolower($make))
             ];
         });
-//        foreach ($vehicles as $vehicle) {
+        //        foreach ($vehicles as $vehicle) {
 //            unset($vehicle->created_at);
 //            unset($vehicle->updated_at);
 //            $vehicle->isConcept = ($vehicle->isConcept) ? TRUE : FALSE;
 //        }
-        return response()->json( $arr );
+        return response()->json($arr);
     }
     public function show(ElectricBike $bike)
     {
         return view('bikes.show', compact('bike'));
     }
 
-    public function save(Request $request) {
+    public function save(Request $request)
+    {
         $data = $request->all();
         $validated = $request->validate([
             'make' => 'required|string',
@@ -154,12 +168,12 @@ class ElectricBikeController extends Controller
             'imageSlug' => 'string|nullable',
             'slug' => 'string'
         ]);
-        if(isset($data['id'])) {
+        if (isset($data['id'])) {
             $bike = ElectricBike::find($data['id']);
             $bike->update($validated);
         } else {
-            $slug = ( empty($validated['slug']))
-                ? Str::slug($data['make'].' '.$data['model'],'-')
+            $slug = (empty($validated['slug']))
+                ? Str::slug($data['make'] . ' ' . $data['model'], '-')
                 : $validated['slug'];
             $bike = ElectricBike::create([
                 'make' => $validated['make'],
@@ -186,7 +200,7 @@ class ElectricBikeController extends Controller
                 'slug' => $slug
             ]);
         }
-        return response()->json([$bike,201]);
+        return response()->json([$bike, 201]);
     }
     public function edit(ElectricBike $bike)
     {
@@ -196,9 +210,10 @@ class ElectricBikeController extends Controller
     public function destroy(ElectricBike $bike)
     {
         $bike->delete();
-        return redirect(route('bikes.index'))->with('notification', '"' . $bike->make .' '.$bike->model.  '" deleted!');
+        return redirect(route('bikes.index'))->with('notification', '"' . $bike->make . ' ' . $bike->model . '" deleted!');
     }
-    public function create() {
+    public function create()
+    {
         return view('bikes.create');
     }
 }
