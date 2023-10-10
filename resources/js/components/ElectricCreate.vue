@@ -116,7 +116,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="imageSlug" class="label">Image Slug</label>
-                    <input v-model="fields.imageSlug" @blur="fields.imageSlug = fields.imageSlug.toLowerCase()" type="text" id="imageSlug" name="imageSlug" class="form-control" value="" placeholder="Image Slug" minlength="2" maxlength="100" required />
+                    <input v-model="fields.imageSlug" @blur="fields.imageSlug = serializeSlug(fields.imageSlug)" type="text" id="imageSlug" name="imageSlug" class="form-control" value="" placeholder="Image Slug" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.imageSlug" class="text-danger">{{ errors.imageSlug[0] }}</div>
                 </div>
             </div>
@@ -269,8 +269,11 @@
             makeSlug() {
                 if(this.onLoadPage) {
                     // return this.makes.find(el => el.id == id).name.toLowerCase();
-                    return this.fields.make.toLowerCase().replace(" ", "-")
+                    return this.fields.make.toLowerCase().replaceAll(" ", "-")
                 }
+            },
+            serializeSlug(slug) {
+                return slug.toLowerCase().replaceAll(" ", "-");
             },
             toggleShow(width,height,make,model,type) {
                 this.params.type = type;

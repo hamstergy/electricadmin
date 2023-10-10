@@ -31,7 +31,9 @@ Route::post('bikes/create', 'ElectricBikeController@save')->middleware('auth');
 Route::get('image', 'ImageController@index');
 Route::get('electric-image', 'ElectricImageController@index');
 Route::post('image/store', 'ImageController@store');
+Route::post('image/store-bike-content', 'ImageController@storeBikeContentImage');
 Route::post('electric-image/store', 'ElectricImageController@store');
+Route::post('electric-image/store-bike', 'ElectricImageController@storeBike');
 Route::post('/image/delete', 'ImageController@delete');
 
 Route::prefix('api')->group(function () {

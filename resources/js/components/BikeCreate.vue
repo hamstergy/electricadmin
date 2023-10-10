@@ -117,7 +117,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="imageSlug" class="label">Image Slug</label>
-                    <input v-model="fields.imageSlug" type="text" id="imageSlug" name="imageSlug" class="form-control" value="" placeholder="Image Slug" minlength="2" maxlength="100" required />
+                    <input v-model="fields.imageSlug" @blur="fields.imageSlug = serializeSlug(fields.imageSlug)" type="text" id="imageSlug" name="imageSlug" class="form-control" value="" placeholder="Image Slug" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.imageSlug" class="text-danger">{{ errors.imageSlug[0] }}</div>
                 </div>
             </div>
@@ -141,25 +141,25 @@
             </div>
             <div class="form-row" v-if="!showUploadButton && onLoadPage">
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-large.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-large.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.large"
                        @click="toggleShow(1190,500,makeSlug(),fields.imageSlug,'large')">Upload Large Image</a>
                 </div>
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-medium.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-medium.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.medium"
                        @click="toggleShow(920,375,makeSlug(),fields.imageSlug,'medium')">Upload Medium Image</a>
                 </div>
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-small.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-small.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.small"
                        @click="toggleShow(300,210,makeSlug(),fields.imageSlug,'small')">Upload Small Image</a>
                 </div>
                 <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/images/'+makeSlug()+'/'+fields.imageSlug+'-mobile.jpg'"
+                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-mobile.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.mobile"
                        @click="toggleShow(580,400,makeSlug(),fields.imageSlug,'mobile')">Upload Mobile Image</a>
@@ -174,7 +174,7 @@
                            :height="sizes.height"
                            :no-square="preview"
                            :no-circle="preview"
-                           url="/electric-image/store"
+                           url="/electric-image/store-bike"
                            :params="params"
                            :headers="headers"
                            img-format="jpg"></my-upload>
@@ -205,8 +205,11 @@
     import 'quill/dist/quill.core.css'
     import 'quill/dist/quill.snow.css'
     import 'quill/dist/quill.bubble.css'
-    import { quillEditor } from 'vue-quill-editor'
+    import { quillEditor, Quill } from 'vue-quill-editor'
+    import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
     import myUpload from 'vue-image-crop-upload'
+
+    Quill.register('modules/ImageExtend', ImageExtend)
 
     export default {
         components: {myUpload, quillEditor},
@@ -241,7 +244,28 @@
                 imgDataUrl: '',
                 onLoadPage: true,
                 editorOption: {
-                    theme: 'snow'
+                    theme: 'snow',
+                    modules: {
+                        ImageExtend: {
+                            loading: true,
+                            name: 'img',
+                            action: "/image/store-bike-content",
+                            response: (res) => {
+                                return res.img;
+                            },
+                            headers: (xhr) => {
+                                xhr.setRequestHeader('X-CSRF-TOKEN',document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
+                            },
+                        },
+                        toolbar: {
+                            container: container,
+                            handlers: {
+                                'image': function () {
+                                    QuillWatch.emit(this.quill.id)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -252,23 +276,29 @@
             }
         },
         methods: {
-            slugGenerate() {
-
-            },
             makeSlug() {
                 if(this.onLoadPage) {
                     // return this.makes.find(el => el.id == id).name.toLowerCase();
-                    return this.fields.make.toLowerCase().replace(" ", "-")
+                    return this.fields.make.toLowerCase().replaceAll(" ", "-")
                 }
             },
+            serializeSlug(slug) {
+                return slug.toLowerCase().replaceAll(" ", "-");
+            },
             toggleShow(width,height,make,model,type) {
-                this.params.type = type;
-                this.params.make = make;
-                this.params.model = model;
-                this.sizes.height = height;
-                this.sizes.width = width;
-                this.imageUploaded[type] = true;
-                this.show = !this.show;
+                if (this.fields.imageSlug) {
+                    this.params.type = type;
+                    this.params.make = make;
+                    this.params.model = model;
+                    this.sizes.height = height;
+                    this.sizes.width = width;
+                    this.imageUploaded[type] = true;
+                    this.show = !this.show;
+                } else {
+                    const imageSlug = ["Fill in this field"]
+                    this.errors = {...this.errors, imageSlug: imageSlug}
+                    console.log(this.errors);
+                }
             },
             submit() {
                 this.errors = {};
