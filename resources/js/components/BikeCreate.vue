@@ -120,6 +120,11 @@
                     <input v-model="fields.imageSlug" @blur="fields.imageSlug = serializeSlug(fields.imageSlug)" type="text" id="imageSlug" name="imageSlug" class="form-control" value="" placeholder="Image Slug" minlength="2" maxlength="100" required />
                     <div v-if="errors && errors.imageSlug" class="text-danger">{{ errors.imageSlug[0] }}</div>
                 </div>
+                <div class="form-group col-md-1">
+                    <label for="imageSlug" class="label">Status</label>
+                    <input v-model="fields.active" type="text" id="active" name="active" class="form-control" value="" placeholder="active" minlength="1" maxlength="2" required />
+                    <div v-if="errors && errors.active" class="text-danger">{{ errors.active[0] }}</div>
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
@@ -140,12 +145,6 @@
                 </div>
             </div>
             <div class="form-row" v-if="!showUploadButton && onLoadPage">
-                <div class="form-group col-md-3">
-                    <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-large.webp'"
-                         class="image img-fluid">
-                    <a class="btn btn-primary" v-if="!imageUploaded.large"
-                       @click="toggleShow(1190,500,makeSlug(),fields.imageSlug,'large')">Upload Large Image</a>
-                </div>
                 <div class="form-group col-md-3">
                     <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-medium.webp'"
                          class="image img-fluid">
