@@ -35,6 +35,7 @@ class ElectricBike extends Model
         'url',
         'amazon_id',
         'review_rate',
-        'title'
+        'title',
+        'active'
     ];
 }

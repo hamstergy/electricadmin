@@ -167,7 +167,8 @@ class ElectricBikeController extends Controller
             'amazon_id' => 'string|nullable',
             'review_rate' => 'numeric|nullable',
             'imageSlug' => 'string|nullable',
-            'slug' => 'string'
+            'slug' => 'string',
+            'active' => 'numeric|nullable'
         ]);
         if (isset($data['id'])) {
             $bike = ElectricBike::find($data['id']);
@@ -198,6 +199,7 @@ class ElectricBikeController extends Controller
                 'amazon_id' => $validated['amazon_id'],
                 'review_rate' => $validated['review_rate'],
                 'imageSlug' => $validated['imageSlug'],
+                'active' => $validated['active'],
                 'slug' => $slug
             ]);
         }
