@@ -111,6 +111,7 @@ class ElectricBikeController extends Controller
     public function jsonMakes(Request $request)
     {
         $bikes = ElectricBike::select('make', DB::raw('count(*) as total'))
+            ->where('active', '!=', 0)
             ->groupBy('make')->orderByDesc('total');
 
         if ($request->has('make')) {
