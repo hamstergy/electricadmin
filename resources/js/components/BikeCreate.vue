@@ -150,7 +150,7 @@
                     <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-medium.webp'"
                          class="image img-fluid">
                     <a class="btn btn-primary" v-if="!imageUploaded.medium"
-                       @click="toggleShow(920,375,makeSlug(),fields.imageSlug,'medium')">Upload Medium Image</a>
+                       @click="toggleShow(710,430,makeSlug(),fields.imageSlug,'medium')">Upload Medium Image</a>
                 </div>
                 <div class="form-group col-md-3">
                     <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-small.webp'"
