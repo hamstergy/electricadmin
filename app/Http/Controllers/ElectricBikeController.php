@@ -48,7 +48,7 @@ class ElectricBikeController extends Controller
      */
     public function list(Request $request)
     {
-        $query = ElectricBike::query()->where('active', '!=', 0);
+        $query = ElectricBike::query()->where('active', '!=', 0)->orderByDesc('active');
 
         if ($request->has('make')) {
             $query->where('make', str_replace('-', ' ', $request->input('make')))->orWhere('make', $request->input('make'));
@@ -81,7 +81,7 @@ class ElectricBikeController extends Controller
 
     public function all(Request $request)
     {
-        $query = ElectricBike::query()->where('active', '!=', 0)->orderByDesc('id');
+        $query = ElectricBike::query()->where('active', '!=', 0);
 
         $objects = $query->select(['slug'])->get();
 
