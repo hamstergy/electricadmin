@@ -1,14 +1,23 @@
 @section('title', 'Home')
 @extends('layouts/app')
-
+@php ($not_available = '<p class="text-danger">N/A</p>')
 @section('content')
     <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Desc</th>
+            <th scope="col">SEO Desc</th>
+            <th scope="col">Review</th>
+            <th scope="col">Break</th>
+            <th scope="col">Battery</th>
+            <th scope="col">Range</th>
+            <th scope="col">Speed</th>
+            <th scope="col">Amazon ID</th>
             <th scope="col">Youtube</th>
+            <th scope="col">Active</th>
             <th scope="col">Delete</th>
         </tr>
         </thead>
@@ -25,7 +34,33 @@
                 </a>
             </td>
             <td>{{($bike->description)? 'Yes': 'No'}}</td>
+            <td>{!!($bike->short_description)? $bike->short_description: $not_available !!}</td>
+            <td>{!!($bike->review)? $bike->review: $not_available !!}</td>
+            <td>{!!($bike->break_system)? $bike->break_system: $not_available !!}</td>
+            <td>{!!($bike->battery)? $bike->battery: $not_available !!}</td>
+            <td>{!!($bike->range)? $bike->range: $not_available !!}</td>
+            <td>{!!($bike->speed)? $bike->speed: $not_available !!}</td>
+            <td>{!!($bike->amazon_id)? "<a href=".$bike->url." target='_blank'>".$bike->amazon_id."</a>": $not_available !!}</td>
+            {{-- 'make' => 'required|string',
+            'model' => 'required|string',
+            <td>{{($bike->description)? 'Yes': 'No'}}</td>
+            'title' => 'required|string',
+            'review' => 'string|nullable',
+            'youtube' => 'string|nullable',
+            'price' => 'numeric|nullable',
+            'motor' => 'integer|nullable',
+            'gears' => 'string|nullable',
+            'tire' => 'string|nullable',
+            'type' => 'string|nullable',
+            'weight' => 'integer|nullable',
+            'folding' => 'boolean|nullable',
+            'frame_type' => 'string|nullable',
+            'review_rate' => 'numeric|nullable',
+            'imageSlug' => 'string|nullable',
+            'slug' => 'string',
+             --}}
             <td>{{($bike->youtube)? 'Yes': 'No'}}</td>
+            <td>{!!($bike->active)? $bike->active: $not_available !!}</td>
             <td>
                 <form method="post" action="{{ route('bikes.destroy', [$bike->id]) }}">
                     @csrf @method('delete')

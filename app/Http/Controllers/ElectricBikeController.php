@@ -95,7 +95,7 @@ class ElectricBikeController extends Controller
 
     public function index()
     {
-        $bikes = ElectricBike::all()->reverse();
+        $bikes = ElectricBike::all()->sortByDesc('active');
         return view('bikes.index', compact('bikes'));
     }
 
