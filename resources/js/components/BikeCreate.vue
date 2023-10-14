@@ -144,6 +144,24 @@
                     <div v-if="errors && errors.description" class="text-danger">{{ errors.description[0] }}</div>
                 </div>
             </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="short_description" class="label">SEO Description</label>
+                    <textarea v-model="fields.short_description" id="short_description" name="short_description" class="form-control" value="" placeholder="SEO Desciption" rows="3" maxlength="170" required></textarea>
+                    <div v-if="errors && errors.title" class="text-danger">{{ errors.short_description[0] }}</div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="label">Review</label>
+                    <div class="editor">
+                        <quill-editor
+                            :content="fields.review"
+                            :options="editorOption"
+                            @change="onReviewChange($event)"
+                        />
+                    </div>
+                    <div v-if="errors && errors.review" class="text-danger">{{ errors.review[0] }}</div>
+                </div>
+            </div>
             <div class="form-row" v-if="!showUploadButton && onLoadPage">
                 <div class="form-group col-md-3">
                     <img :src="'https://hamstercar.s3-us-west-2.amazonaws.com/bike-images/'+makeSlug()+'/'+fields.imageSlug+'-medium.webp'"
@@ -347,6 +365,9 @@
             },
             onEditorChange({ quill, html, text }) {
                 this.fields.description = html
+            },
+            onReviewChange({ quill, html, text }) {
+                this.fields.review = html
             }
         }
     }

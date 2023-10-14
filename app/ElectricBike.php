@@ -21,6 +21,7 @@ class ElectricBike extends Model
         'speed',
         'range',
         'description',
+        'short_description',
         'youtube',
         'price',
         'battery',
@@ -35,6 +36,7 @@ class ElectricBike extends Model
         'url',
         'amazon_id',
         'review_rate',
+        'review',
         'title',
         'active'
     ];
