@@ -70,7 +70,7 @@ class ElectricBikeController extends Controller
             $query->where('slug', "!=", $request->input('excludeBySlug'))->first();
         }
 
-        $objects = $query->paginate(18);
+        $objects = $query->paginate(20);
 
         return response()->json([
             'data' => $objects->items(),
