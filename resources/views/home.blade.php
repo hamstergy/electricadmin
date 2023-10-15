@@ -20,6 +20,7 @@
                             <div class="list-group">
                                 <a href="{{ url('/electric') }}" class="list-group-item list-group-item-action">Electric Catalog</a>
                                 <a href="{{ url('/bikes') }}" class="list-group-item list-group-item-action">Electric Bike Catalog</a>
+                                <a href="{{ url('/posts') }}" class="list-group-item list-group-item-action">Posts</a>
                             </div>
                         </div>
                         <div class="col">

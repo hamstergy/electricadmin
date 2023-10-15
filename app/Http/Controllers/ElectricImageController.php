@@ -70,6 +70,33 @@ class ElectricImageController extends Controller
         return response()->json(false);
     }
 
+    public function storePost(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'img' => 'required|image',
+                'type' => 'required|string',
+                'slug' => 'required|string'
+            ]
+        );
+
+        if ($request->hasfile('img')) {
+            $file = $request->file('img');
+            $name = $request->slug . '-' . $request->type . '.webp';
+            $filePath = 'post-images/' . $name;
+            imagewebp(
+                imagecreatefromstring(file_get_contents($file)),
+                $name,
+                80
+            );
+            Storage::disk('s3')->put($filePath, file_get_contents($name), 'public');
+            unlink($name);
+            return response()->json([$filePath, 201]);
+        }
+        return response()->json(false);
+    }
+
     public function delete(Request $request)
     {
         $d = Storage::disk('s3')->delete('images/' . $request['data']);

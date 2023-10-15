@@ -98,6 +98,33 @@ class ImageController extends Controller
         return response()->json(false);
     }
 
+    public function storePostContentImage(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'img' => 'required|image',
+            ]
+        );
+        if ($request->hasfile('img')) {
+            $file = $request->file('img');
+            $name = uniqid() . '.webp';
+            imagewebp(
+                imagecreatefromstring(file_get_contents($file)),
+                $name,
+                90
+            );
+            $filePath = 'images/post-content/' . $name;
+            Storage::disk('s3')->put($filePath, file_get_contents($name), 'public');
+            unlink($name);
+            return response()->json(
+                ["img" => self::$AWS_URL . $filePath],
+                200
+            );
+        }
+        return response()->json(false);
+    }
+
     public function delete(Request $request)
     {
         $d = Storage::disk('s3')->delete('images/' . $request['data']);

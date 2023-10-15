@@ -34,8 +34,8 @@
                 </a>
             </td>
             <td>{{($bike->description)? 'Yes': 'No'}}</td>
-            <td>{!!($bike->short_description)? 'Yes': 'No' !!}</td>
-            <td>{!!($bike->review)? 'Yes': 'No' !!}</td>
+            <td>{!!($bike->short_description)? 'Yes': $not_available !!}</td>
+            <td>{!!($bike->review)? 'Yes': $not_available !!}</td>
             <td>{!!($bike->break_system)? $bike->break_system: $not_available !!}</td>
             <td>{!!($bike->battery)? $bike->battery: $not_available !!}</td>
             <td>{!!($bike->range)? $bike->range: $not_available !!}</td>

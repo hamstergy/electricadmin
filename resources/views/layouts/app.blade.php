@@ -36,8 +36,11 @@
                         <li class="nav-item pr-2">
                             <a class="btn btn-sm btn-outline-success" href="{{ url('/electric/create') }}">Add Car</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item pr-2">
                             <a class="btn btn-sm btn-outline-success" href="{{ url('/bikes/create') }}">Add Bike</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-sm btn-outline-success" href="{{ url('/posts/create') }}">Add Post</a>
                         </li>
                     </ul>
 
