@@ -52,6 +52,8 @@ Route::prefix('api')->group(function () {
     Route::get('bikes/all', 'ElectricBikeController@all');
     Route::get('bikes/makes', 'ElectricBikeController@jsonMakes');
     Route::get('bikes/{ElectricBike:slug}', 'ElectricBikeController@singleBike');
+
+    Route::get('used', 'UsedCarController@list');
 });
 
 Auth::routes();

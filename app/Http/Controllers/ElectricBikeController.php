@@ -90,7 +90,7 @@ class ElectricBikeController extends Controller
 
     public function singleBike(ElectricBike $bike, $slug)
     {
-        return response()->json(ElectricBike::where('slug', $slug)->first());
+        return response()->json(ElectricBike::where('slug', $slug)->where('active', '!=', 0)->first());
     }
 
     public function index()
