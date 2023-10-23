@@ -52,7 +52,7 @@ class ElectricBikeController extends Controller
         $query = ElectricBike::query()->where('active', '!=', 0)->orderByDesc('active');
 
         if ($request->has('make')) {
-            $query->where('make', str_replace('-', ' ', $request->input('make')))->orWhere('make', $request->input('make'));
+            $query->where('make', str_replace('-', ' ', $request->input('make')));
         }
 
         if ($request->has('type')) {
