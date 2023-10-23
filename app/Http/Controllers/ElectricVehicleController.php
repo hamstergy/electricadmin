@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ElectricVehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Storage;
 use DB;
@@ -63,15 +64,38 @@ class ElectricVehicleController extends Controller
 
     public function all(Request $request)
     {
-        // $vehicles = $this->model->orderBy('make')->get(['id', 'name']);
-        // return response()->json([
-        //     'vehicles' => $vehicles
-        // ]);
         $query = ElectricVehicle::query()->orderByDesc('id');
+        $objects = $query->select(['slug', 'updated_at'])->get();
 
-        $objects = $query->select(['slug'])->get();
+        $allUrls = $objects->map(function ($obj) {
+            return [
+                'url' => 'https://evrevue.com/cars/' . str_replace(' ', '-', strtolower($obj->slug)),
+                'updatedAt' => Carbon::parse($obj->updated_at)->format('Y-m-d'),
+            ];
+        });
 
-        return response()->json($objects);
+        $makes = ElectricVehicle::select('make', DB::raw('count(*) as total'))
+            ->groupBy('make')->orderByDesc('total')->get();
+
+        $allMakes = $makes->map(function ($obj) {
+            return [
+                'url' => 'https://evrevue.com/cars/make/' . str_replace(' ', '-', strtolower($obj->make)),
+                'updatedAt' => Carbon::now()->format('Y-m-d'),
+            ];
+        });
+
+        $types = ElectricVehicle::select('type')
+            ->where('type', '!=', null)
+            ->groupBy('type')->get();
+
+        $allTypes = $types->map(function ($obj) {
+            return [
+                'url' => 'https://evrevue.com/cars/type/' . str_replace(' ', '-', strtolower($obj->type)),
+                'updatedAt' => Carbon::now()->format('Y-m-d'),
+            ];
+        });
+
+        return response()->json(array_merge($allUrls->toArray(), $allMakes->toArray(), $allTypes->toArray()));
     }
 
     public function singleCar(ElectricVehicle $electric, $slug)

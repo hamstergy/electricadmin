@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ElectricBike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Storage;
 use DB;
@@ -82,10 +83,49 @@ class ElectricBikeController extends Controller
     public function all(Request $request)
     {
         $query = ElectricBike::query()->where('active', '!=', 0);
+        $objects = $query->select(['slug', 'updated_at'])->get();
 
-        $objects = $query->select(['slug'])->get();
+        $makes = ElectricBike::select('make', DB::raw('count(*) as total'))
+            ->where('active', '!=', 0)
+            ->groupBy('make')->orderByDesc('total')->get();
 
-        return response()->json($objects);
+        $allUrls = $objects->map(function ($obj) {
+            return [
+                'url' => 'https://evrevue.com/bikes/' . str_replace(' ', '-', strtolower($obj->slug)),
+                'updatedAt' => Carbon::parse($obj->updated_at)->format('Y-m-d'),
+            ];
+        });
+
+        $allMakes = $makes->map(function ($obj) {
+            return [
+                'url' => 'https://evrevue.com/bikes/make/' . str_replace(' ', '-', strtolower($obj->make)),
+                'updatedAt' => Carbon::now()->format('Y-m-d'),
+            ];
+        });
+
+        $prices = [
+            ["slug" => "under-500"],
+            ["slug" => "under-700"],
+            ["slug" => "under-1000"],
+            ["slug" => "under-1200"],
+            ["slug" => "under-1500"],
+            ["slug" => "500-1000"],
+            ["slug" => "1000-1500"],
+            ["slug" => "1500-2000"],
+            ["slug" => "2000-3000"],
+            ["slug" => "1000-above"],
+            ["slug" => "2000-above"],
+            ["slug" => "3000-above"]
+        ];
+
+        $allPrices = array_map(function ($obj) {
+            return [
+                'url' => 'https://evrevue.com/bikes/price/' . $obj["slug"],
+                'updatedAt' => Carbon::now()->format('Y-m-d'),
+            ];
+        }, $prices);
+
+        return response()->json(array_merge($allUrls->toArray(), $allMakes->toArray(), $allPrices));
     }
 
     public function singleBike(ElectricBike $bike, $slug)

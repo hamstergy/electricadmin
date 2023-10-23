@@ -78,15 +78,6 @@ class PostController extends Controller
         ]);
     }
 
-    public function all(Request $request)
-    {
-        $query = ElectricBike::query()->where('active', '!=', 0);
-
-        $objects = $query->select(['slug'])->get();
-
-        return response()->json($objects);
-    }
-
     public function singlePost(Post $post, $slug)
     {
         return response()->json(Post::where('slug', $slug)->first());
